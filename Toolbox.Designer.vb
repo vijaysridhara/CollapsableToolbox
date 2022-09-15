@@ -51,6 +51,7 @@ Partial Class Toolbox
         '
         'Label1
         '
+        Me.Label1.BackColor = System.Drawing.SystemColors.MenuHighlight
         Me.Label1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(0, 0)
@@ -87,6 +88,7 @@ Partial Class Toolbox
         'chkPin
         '
         Me.chkPin.Appearance = System.Windows.Forms.Appearance.Button
+        Me.chkPin.BackColor = System.Drawing.SystemColors.MenuHighlight
         Me.chkPin.Checked = True
         Me.chkPin.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkPin.Dock = System.Windows.Forms.DockStyle.Right
@@ -97,10 +99,11 @@ Partial Class Toolbox
         Me.chkPin.Name = "chkPin"
         Me.chkPin.Size = New System.Drawing.Size(19, 19)
         Me.chkPin.TabIndex = 1
-        Me.chkPin.UseVisualStyleBackColor = True
+        Me.chkPin.UseVisualStyleBackColor = False
         '
         'chkClose
         '
+        Me.chkClose.BackColor = System.Drawing.SystemColors.MenuHighlight
         Me.chkClose.Dock = System.Windows.Forms.DockStyle.Right
         Me.chkClose.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.chkClose.Font = New System.Drawing.Font("Lucida Console", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -112,10 +115,11 @@ Partial Class Toolbox
         Me.chkClose.TabIndex = 5
         Me.chkClose.Text = "X"
         Me.chkClose.TextAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.chkClose.UseVisualStyleBackColor = True
+        Me.chkClose.UseVisualStyleBackColor = False
         '
         'pnlLeft
         '
+        Me.pnlLeft.BackColor = System.Drawing.SystemColors.ControlDark
         Me.pnlLeft.Controls.Add(Me.lblTB)
         Me.pnlLeft.Dock = System.Windows.Forms.DockStyle.Left
         Me.pnlLeft.Location = New System.Drawing.Point(0, 0)
@@ -127,7 +131,7 @@ Partial Class Toolbox
         '
         Me.lblTB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lblTB.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblTB.Image = Global.VijaySridhara.Controls.My.Resources.Resources.lefttoolbox1
+        Me.lblTB.Image = Global.VijaySridhara.Controls.My.Resources.Resources.lefttoolbox
         Me.lblTB.ImageAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.lblTB.Location = New System.Drawing.Point(0, 0)
         Me.lblTB.Name = "lblTB"

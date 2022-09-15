@@ -27,6 +27,7 @@ Public Class Toolbox
     Private _isMinimized As Boolean
     Private _isavailable As Boolean = True
     Event DockButtonClicked(forExpand As Boolean)
+    Private _DefHeight As Integer = 200
     Public Property Title() As String
         Get
             Return Label1.Text
@@ -88,9 +89,34 @@ Public Class Toolbox
         If Me.Dock = DockStyle.Left Then
             pnlLeft.Dock = DockStyle.Left
             chkPin.Dock = DockStyle.Right
-        Else
+            lblTB.Image = My.Resources.lefttoolbox
+            pnlLeft.Width = 25
+            lblTB.Dock = DockStyle.Top
+            lblTB.Height = 90
+        ElseIf Me.Dock = DockStyle.Right Then
             pnlLeft.Dock = DockStyle.Right
             chkPin.Dock = DockStyle.Left
+            lblTB.Image = My.Resources.lefttoolbox
+            pnlLeft.Width = 25
+            lblTB.Height = 90
+            lblTB.Dock = DockStyle.Top
+        ElseIf Me.Dock = DockStyle.Bottom Then
+            pnlLeft.Dock = DockStyle.Bottom
+            chkPin.Dock = DockStyle.Right
+            lblTB.Image = My.Resources.bottoolbox
+            pnlLeft.Height = 25
+            lblTB.Width = 90
+            lblTB.Dock = DockStyle.Left
+            pnlLeft.BringToFront()
+        ElseIf Me.Dock = DockStyle.Top Then
+            pnlLeft.Dock = DockStyle.Top
+            chkPin.Dock = DockStyle.Right
+            lblTB.Image = My.Resources.bottoolbox
+            lblTB.Dock = DockStyle.Left
+            pnlLeft.Height = 25
+            pnlLeft.BringToFront()
+            lblTB.Width = 90
+
         End If
     End Sub
 
@@ -100,11 +126,18 @@ Public Class Toolbox
     End Sub
 
     Private Sub tmrDelay_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmrDelay.Tick
-
-        If Decreasing = True Then
-            Me.Width -= 15
+        If Me.Dock = DockStyle.Left Or Me.Dock = DockStyle.Right Then
+            If Decreasing = True Then
+                Me.Width -= 15
+            Else
+                Me.Width += 15
+            End If
         Else
-            Me.Width += 15
+            If Decreasing = True Then
+                Me.Height -= 15
+            Else
+                Me.Height += 15
+            End If
         End If
     End Sub
 
@@ -121,22 +154,50 @@ Public Class Toolbox
 
     Private Sub Dockabletoolbar_Resize(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Resize
         If tmrDelay.Enabled Then
-            If Me.Width >= _DefWidth And Not Decreasing Then
-                Me.Width = _DefWidth
-                tmrDelay.Stop()
-                tmrDelay.Enabled = False
-                tmrHold.Start()
-                RaiseEvent Maximized()
-            ElseIf Decreasing And Me.Width <= pnlLeft.Width Then
-                Decreasing = False
-                Me.Width = pnlLeft.Width
-                tmrDelay.Stop()
-                tmrDelay.Enabled = False
-                RaiseEvent Minimized()
-            End If
+            If Me.Dock = DockStyle.Left Or Me.Dock = DockStyle.Right Then
+                If Me.Width >= _DefWidth And Not Decreasing Then
+                    Me.Width = _DefWidth
+                    tmrDelay.Stop()
+                    tmrDelay.Enabled = False
+                    tmrHold.Start()
+                    RaiseEvent Maximized()
+                ElseIf Decreasing And Me.Width <= pnlLeft.Width Then
+                    Decreasing = False
+                    Me.Width = pnlLeft.Width
+                    tmrDelay.Stop()
+                    tmrDelay.Enabled = False
+                    RaiseEvent Minimized()
+                End If
 
-        ElseIf pnlLeft.Width < Me.Width Then 'this is needed because every time Form is minimized , it is taking 0 as width
-            _DefWidth = Me.Width
+            ElseIf Me.Dock = DockStyle.Top Or Me.Dock = DockStyle.Bottom Then
+                If Me.Height >= _DefHeight And Not Decreasing Then
+                    Me.Height = _DefHeight
+                    tmrDelay.Stop()
+                    tmrDelay.Enabled = False
+                    tmrHold.Start()
+                    RaiseEvent Maximized()
+                ElseIf Decreasing And Me.Height <= pnlLeft.Height Then
+                    Decreasing = False
+                    Me.Height = pnlLeft.Height
+                    tmrDelay.Stop()
+                    tmrDelay.Enabled = False
+                    RaiseEvent Minimized()
+                End If
+            End If
+        Else
+            If Me.Dock = DockStyle.Left Or Me.Dock = DockStyle.Right Then
+                If pnlLeft.Width < Me.Width Then 'this is needed because every time Form is minimized , it is taking 0 as width
+                    _DefWidth = Me.Width
+
+                End If
+
+            Else
+
+                If pnlLeft.height < Me.height Then 'this is needed because every time Form is minimized , it is taking 0 as width
+                    _DefHeight = Me.Height
+
+                End If
+            End If
         End If
     End Sub
 
